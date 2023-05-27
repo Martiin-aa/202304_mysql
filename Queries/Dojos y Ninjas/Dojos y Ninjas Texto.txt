@@ -1,0 +1,53 @@
+-- Consulta: recupera todos los dojos
+SELECT * FROM dojos;
+-- Consulta: recupera todos los ninjas
+SELECT * FROM ninjas;
+-- Consulta: crea 3 dojos nuevos
+INSERT INTO 
+	dojos (nombre, created_at, updated_at) 
+VALUES
+	("Dojo1", NOW(), NOW()), 
+    ("Dojo2", NOW(), NOW()),
+    ("Dojo3", NOW(), NOW());
+-- Consulta: elimina los 3 dojos que acabas de crear
+DELETE FROM dojos WHERE id = 1 OR id = 2 OR id = 3;
+-- Consulta: crea 3 dojos nuevos
+INSERT INTO 
+	dojos (nombre, created_at, updated_at) 
+VALUES
+	("NewDojo1", NOW(), NOW()), 
+    ("NewDojo2", NOW(), NOW()),
+    ("NewDojo3", NOW(), NOW());
+-- Consulta: crea 3 ninjas que pertenezcan al primer dojo
+SELECT * FROM ninjas
+JOIN dojos ON dojos.id = ninjas.dojo_id;
+INSERT INTO 
+	ninjas (nombre, apellido, edad, created_at, updated_at, dojo_id) 
+VALUES
+	("Martin", "Araya", "22", NOW(), NOW(), "4"),
+    ("Nicolas", "Antezana", "18", NOW(), NOW(), "4"),
+    ("Sebastian", "Coro", "25", NOW(), NOW(), "4");
+-- Consulta: crea 3 ninjas que pertenezcan al segundo dojo
+SELECT * FROM ninjas
+JOIN dojos ON dojos.id = ninjas.dojo_id;
+INSERT INTO 
+	ninjas (nombre, apellido, edad, created_at, updated_at, dojo_id) 
+VALUES
+	("Sara", "Jofre", "21", NOW(), NOW(), "5"),
+    ("Nayareth", "Bustos", "19", NOW(), NOW(), "5"),
+    ("Ayelen", "Riquelme", "22", NOW(), NOW(), "5");
+-- Consulta: crea 3 ninjas que pertenezcan al tercer dojo
+SELECT * FROM ninjas
+JOIN dojos ON dojos.id = ninjas.dojo_id;
+INSERT INTO 
+	ninjas (nombre, apellido, edad, created_at, updated_at, dojo_id) 
+VALUES
+	("Martin", "Riquelme", "22", NOW(), NOW(), "6"),
+    ("Cristobal", "Gonzales", "19", NOW(), NOW(), "6"),
+    ("Vicente", "Rodriguez", "22", NOW(), NOW(), "6");
+-- Consulta: recupera todos los ninjas del primer dojo
+SELECT * FROM ninjas WHERE dojo_id = "4";
+-- Consulta: recupera todos los ninjas del ultimo dojo
+SELECT * FROM ninjas WHERE dojo_id = "5";
+-- Consulta: recupera el dojo del último ninja
+SELECT nombre, apellido, dojo_id FROM ninjas WHERE id = 18;

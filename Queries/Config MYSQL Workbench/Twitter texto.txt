@@ -1,0 +1,10 @@
+-- CRUD (Crear, leer, actualizar, eliminar)
+-- insert (crear)
+INSERT INTO users (first_name, last_name, created_at, updated_at) VALUES ("Martin", "Araya", NOW(), NOW());
+-- select (leer)
+SELECT id, first_name, last_name, created_at, updated_at FROM users ORDER BY first_name;
+-- update (actualizar)
+UPDATE twitter.users SET first_name = "Michael" WHERE id = 1;
+-- delete (eliminar)
+SET SQL_SAFE_UPDATES = 0;
+DELETE FROM twitter.users WHERE id >= 14;

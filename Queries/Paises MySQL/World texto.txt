@@ -1,0 +1,94 @@
+-- 1. ¿Qué consulta ejecutarías para obtener todos los países que hablan esloveno?
+-- Tu consulta debe devolver el nombre del país, el idioma y el porcentaje de habla del idioma.
+-- Tu consulta debe ordenar el resultado por porcentaje de habla del idioma en orden descendente. 
+SELECT 
+    country_code, language, percentage
+FROM
+    languages
+WHERE
+    language = 'slovene'
+ORDER BY percentage DESC;
+-- 2. ¿Qué consulta ejecutarías para mostrar el número total de ciudades de cada país?
+-- Tu consulta debe devolver el nombre del país, el idioma y el número total de ciudades.
+-- Tu consulta debe ordenar el resultado por el número de ciudades en orden descendente. 
+SELECT 
+    countries.name AS 'Pais',
+    languages.language AS 'idioma',
+    COUNT(cities.name) AS 'N° de ciudades'
+FROM
+    countries
+        JOIN
+    languages ON countries.id = languages.country_id
+        JOIN
+    cities ON countries.id = cities.country_id
+GROUP BY countries.name, languages.language
+ORDER BY COUNT(cities.name) DESC;
+-- 3. ¿Qué consulta ejecutarías para obtener todos ciudades de México con una población mayor a 500,000?
+-- Tu consulta debe ordenar el resultado por población en orden descendente.
+SELECT 
+    cities.name AS 'Ciudad',
+    cities.population,
+    countries.name AS 'Pais'
+FROM
+    cities
+        JOIN
+    countries ON countries.id = cities.country_id
+WHERE
+    countries.code = 'MEX'
+        AND cities.population > 500000
+ORDER BY population DESC;
+-- 4. ¿Qué consulta ejecutarías para obtener todos los idiomas en cada país con un porcentaje de habla mayor a 89%?
+-- Tu consulta debe ordenar el resultado por porcentaje de habla en orden descendente.
+SELECT 
+    languages.language,
+    countries.name AS 'Pais',
+    languages.percentage
+FROM
+    languages
+        JOIN
+    countries ON countries.id = languages.country_id
+WHERE
+    percentage > '89%'
+ORDER BY percentage DESC;
+-- 5. ¿Qué consulta ejecutarías para obtener todos los países con un área de superficie menor a 501 y población mayor a 100,000?
+SELECT 
+    name AS 'Pais', surface_area AS 'Superficie', population
+FROM
+    countries
+WHERE
+    surface_area < 501
+        AND population > 100000;
+-- 6. ¿Qué consulta ejecutarías para obtener países solo con monarquía constitucional, un capital superior a 200 y una esperanza de vida mayor a 75 años? 
+SELECT 
+    government_form AS 'Tipo de gobierno',
+    capital,
+    ROUND(life_expectancy) AS 'Esperanza de vida'
+FROM
+    countries
+WHERE
+    government_form = 'Constitutional Monarchy'
+        AND capital > 200
+        AND life_expectancy >= 76;
+-- 7. ¿Qué consulta ejecutarías para obtener todas las ciudades de Argentina dentro del distrito de Buenos Aires con una población mayor a 500,000 habitantes?
+-- La consulta debe devolver el nombre del país, el nombre de la ciudad, el distrito y la población. 
+SELECT 
+    countries.name AS 'Pais',
+    cities.name AS 'Ciudad',
+    cities.district,
+    cities.population
+FROM
+    cities
+        JOIN
+    countries ON countries.id = cities.country_id
+WHERE
+    countries.name = 'Argentina'
+        AND cities.district = 'Buenos Aires'
+        AND cities.population > 500000;
+-- 8. ¿Qué consulta ejecutarías para resumir el número de países en cada región?
+-- Tu consulta debe mostrar el nombre de la región y el número de países. 
+-- Además, debe ordenar el resultado por el número de países en orden descendente.
+SELECT 
+    COUNT(name) AS 'n° de Paises', region
+FROM
+    countries
+GROUP BY region

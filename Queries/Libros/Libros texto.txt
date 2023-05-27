@@ -1,0 +1,77 @@
+-- Mostrar usuarios
+SELECT nombre, apellido FROM usuarios;
+-- Mostrar libros
+SELECT titulo FROM libros;
+-- Mostrar favoritos
+SELECT * From favoritos;
+-- Consulta: crea 5 usuarios diferentes: Jane Austen, Emily Dickinson, Fyodor Dostoevsky, William Shakespeare, Lau Tzu
+INSERT INTO 
+	usuarios (nombre, apellido) 
+VALUES
+	('Jane', 'Austen'), 
+    ('Emily', 'Dickinson'),
+    ('Fyodor', 'Dostoevsky'),
+    ('William', 'Shakespeare'),
+    ('Lau', 'Tzu');
+-- Consulta: crea 5 libros con los siguientes nombres: C Sharp, Java, Python, PHP, Ruby
+INSERT INTO 
+	libros (titulo)
+VALUES
+	('C Sharp'), 
+    ('Java'), 
+    ('Python'), 
+    ('PHP'), 
+    ('Ruby');
+-- Consulta: cambia el nombre del libro de C Sharp a C#
+UPDATE libros SET titulo = 'C#' WHERE id = 1;
+-- Consulta: cambia el nombre del cuarto usuario a Bill
+UPDATE usuarios SET nombre = 'Bill' WHERE id = 4;
+-- Consulta: haz que el primer usuario marque como favorito los 2 primeros libros
+-- haz que el segundo usuario marque como favorito los primeros 3 libros
+-- haz que el tercer usuario marque como favorito los 4 primeros libros
+-- haz que el cuarto usuario marque como favorito todos los libros
+INSERT INTO 
+	favoritos (usuario_id, libro_id)
+VALUES 
+	(1,1), (1,2),
+	(2,1), (2,2), (2,3),
+	(3,1), (3,2), (3,3), (3,4),
+	(4,1), (4,2), (4,3), (4,4);
+-- Consulta: recupera todos los usuarios que marcaron como favorito el tercer libro
+SELECT 
+	usuarios.nombre, libros.titulo 
+FROM
+    libros
+        JOIN
+    favoritos ON libros.id = favoritos.libro_id
+        JOIN
+    usuarios ON usuarios.id = favoritos.usuario_id
+WHERE
+    libro.id = 3;
+-- Consulta: elimina el primer usuario de los favoritos del tercer libro
+DELETE FROM favoritos WHERE libro_id = 3 AND usuario_id = 2;
+-- Consulta: Haz que el quinto usuario marque como favorito el segundo libro
+INSERT INTO favoritos (usuario_id, libro_id) VALUES (5, 2);
+-- Encuentra todos los libros que el tercer usuario marcó como favoritos
+SELECT 
+    usuarios.nombre, libros.titulo
+FROM
+    usuarios
+        JOIN
+    favoritos ON usuarios.id = favoritos.usuario_id
+        JOIN
+    libros ON libros.id = favoritos.libro_id
+WHERE
+    usuarios.id = 3;
+-- Consulta: encuentra todos los usuarios que marcaron como favorito el quinto libro
+SELECT 
+    usuarios.nombre, libros.titulo
+FROM
+    libros
+        JOIN
+    favoritos ON libros.id = favoritos.libro_id
+        JOIN
+    usuarios ON usuarios.id = favoritos.usuario_id
+WHERE
+    libros.id = 5;
+	

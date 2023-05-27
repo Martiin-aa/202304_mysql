@@ -1,0 +1,21 @@
+-- Consulta: recupera todos los usuarios
+SELECT * FROM usuarios;
+-- Consulta: crea 3 usuarios nuevos
+INSERT INTO 
+	usuarios (nombre, apellido, email, created_at, updated_at) 
+VALUES
+	("Martin", "Araya", "maraya@gmail.com", NOW(), NOW()), 
+    ("Nicolas", "Gonzales", "ngonzales@gmail.com", NOW(), NOW()),
+    ("Sebastian", "Coro", "scoro@gmail.com", NOW(), NOW());
+-- Consulta: recupera el primer usuario que usa su dirección de correo electrónico
+SELECT nombre, email FROM usuarios LIMIT 1;
+-- Consulta: recupera el último usuario que usa su id
+SELECT id FROM usuarios LIMIT 2,1;
+-- Consulta: cambia el usuario con id=3 para que su apellido sea Panqueques
+UPDATE usuarios SET apellido = "Panqueques" WHERE id = 3;
+-- Consulta: elimina el usuario con id=2 de la base de datos
+DELETE FROM usuarios WHERE id = 2;
+-- Consulta: obtén todos los usuarios, ordenados por su nombre
+SELECT * FROM usuarios ORDER BY nombre;
+-- Consulta BONUS: obtén todos los usuarios, ordenados por su nombre en orden descendente
+SELECT * FROM usuarios ORDER BY nombre DESC;
